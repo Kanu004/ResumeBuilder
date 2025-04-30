@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Builder</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #ffe4ec, #e0f0ff);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+      }
+      
+      form {
+        max-height: 90vh;
+        overflow-y: auto;
+        width: 45%;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        padding: 20px;
+      }
+      
+      fieldset {
+        border: none;
+      }
+      
+      legend {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #0077b6;
+        margin-bottom: 20px;
+      }
+      
+      label {
+        font-weight: 600;
+        margin-top: 10px;
+        display: inline-block;
+      }
+      
+      input[type="text"],
+      input[type="file"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+      }
+      
+      input[type="file"] {
+        display: none;
+      }
+      
+      .profile {
+        background-color: #f0f9ff;
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px dashed #99d9f1;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      .profile label[for="image"] {
+        display: block;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        color: #005b96;
+      }
+
+      .profileImage{
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        display: flex;
+      }
+
+      .profileDes{
+        margin-left:300px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .skills div,
+      .hobbies div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: baseline;
+        align-items:baseline;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      
+      input[type="checkbox"] + label {
+        margin-right: 15px;
+        font-weight: normal;
+      }
+      
+      input[type="submit"] {
+        background-color: #ffc1cc;
+        color: #000;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      
+      input[type="submit"]:hover {
+        background-color: #ffb3c1;
+      }
+      
+      #resumeOutput {
+        width: 45%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        overflow-y: auto;
+        max-height: 90vh;
+      }
+      
+      #resumeOutput h2 {
+        text-align: center;
+        color: #0077b6;
+        margin-bottom: 20px;
+      }
+      
+      #resumeOutput img {
+        max-width: 120px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      }
+      
+      .section {
+        margin-bottom: 20px;
+      }
+      
+      .section h3 {
+        border-bottom: 1px solid #ccc;
+        color: #0077b6;
+        padding-bottom: 5px;
+        text-align: left;
+      }
+
+      .section button{
+        border: none;
+        border-radius: 5px;
+        background-color: #ffb3c1;
+        color: #0077b6;
+        padding: 5px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        text-align: left;
+      }
+      
+      #outputContent {
+        text-align: justify;
+      }
+
+      .laabel #addEdu, .laabel #addProj{
+        border: none;
+        border-radius: 5px;
+        color:#000;
+        padding: 3px;
+        font-size: 1rem;
+        cursor: pointer;
+        text-align: left;       
+      }
+      
+  </style>
+</head>
+<body>
+
+  <form id="resumeForm">
+    <fieldset>
+      <legend>Build Your Resume</legend>
+
+      <div class="profile">
+        <label for="image">Upload Profile Image</label>
+        <input type="file" id="image" accept=".jpg, .png, .jpeg">
+        <br>
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Your Name">
+        <label for="role">Role</label>
+        <input type="text" id="role" placeholder="Role">
+      </div>
+
+      <div class="info">
+        <label for="linkedin">LinkedIn Profile</label>
+        <input type="text" id="linkedin" placeholder="LinkedIn Profile">
+        <label for="github">GitHub Profile</label>
+        <input type="text" id="github" placeholder="GitHub Profile">
+      </div>
+
+      <div class="edu">
+        <div class="laabel">
+          <label for="education">Education</label><button id="addEdu">Add New+</button>
+        </div>
+        <input type="text" id="education" placeholder="Education">
+      </div>
+
+      <div class="projects">
+        <div class="laabel">
+          <label for="projects">Project</label><button id="addProj">Add New+</button>
+        </div>
+        <input type="text" id="projects" placeholder="Project">
+      </div>
+
+      <div class="skills">
+        <label for="skills">Select your skills:</label>
+        <input type="text" id="skills" placeholder="Skills">
+      </div>
+
+      <div class="hobbies">
+        <label for="hobbies">Select your hobbies:</label>
+        <input type="text" id="hobbies" placeholder="Hobbies">
+      </div>
+
+      <div class="summary">
+        <label for="summary">Summary</label>
+        <textarea id="summary" cols="50" rows="10" placeholder="Summary about you...."></textarea>
+      </div>
+
+      <input type="submit" value="Submit">
+    </fieldset>
+  </form>
+
+  <div id="resumeOutput">
+    <h2>Your Resume Preview</h2>
+    <div id="outputContent"></div>
+    <div class="section">
+      <button id="downloadBtn" >Download Your Resume</button>
+    </div>    
+  </div>
+
+  <script>
+    let form=document.querySelector('form');
+    let output = document.querySelector('#outputContent');
+    let name = document.querySelector('#name');
+    let role = document.querySelector('#role');
+    let linkedin = document.querySelector('#linkedin');
+    let github = document.querySelector('#github');
+
+    let skills =document.querySelector('#skills');
+    let hobbies =document.querySelector('#hobbies');
+    let summary = document.querySelector('#summary');
+    let download =document.querySelector('#downloadBtn');
+
+    let add= document.querySelector('#addEdu');
+    let add1=document.querySelector('#addProj')
+
+    
+    add.addEventListener('click',(e)=>{
+      e.preventDefault();
+      let addnew=document.createElement('input');
+      addnew.style.cssText=`
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;`;
+        document.querySelector('.edu').appendChild(addnew)
+    });
+
+
+    add1.addEventListener('click',(e)=>{
+      e.preventDefault();
+      let addnew=document.createElement('input');
+      addnew.style.cssText=`
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;`;
+        document.querySelector('.projects').appendChild(addnew)
+    });
+  
+
+    form.addEventListener('submit',(e)=>{
+      e.preventDefault();
+  
+      let eduInputs = document.querySelectorAll('.edu input');
+      let projectInputs = document.querySelectorAll('.projects input');
+
+      let eduList = Array.from(eduInputs).map(input => `<p>${input.value}</p>`).join('');
+      let projList = Array.from(projectInputs).map(input => `<p>${input.value}</p>`).join('');
+  
+      let imageFile = document.querySelector('#image').files[0];
+      let reader = new FileReader();
+            
+      function displayResume(imageSrc) {
+        const imgTag = imageSrc ? `<img src="${imageSrc}" alt="Profile Picture" />` : '';
+  
+        output.innerHTML = `
+          <div class=profileImage>
+            ${imgTag}
+            <div class=profileDes>
+              <p><strong>${name.value}</strong></p>
+              <p><strong>${role.value}</strong></p>
+            </div>
+          </div>
+          <div class="section"><h3>Contact</h3><p>LinkedIn: ${linkedin.value}</p><p>GitHub: ${github.value}</p></div>
+          <div class="section"><h3>Education</h3><p>${eduList}</p></div>
+          <div class="section"><h3>Project</h3><p>${projList}</p></div>
+          <div class="section"><h3>Skills</h3><p>${skills.value}</p></div>
+          <div class="section"><h3>Hobbies</h3><p>${hobbies.value}</p></div>
+          <div class="section"><h3>Summary</h3><p>${summary.value}</p></div>
+          <div class="section"><button>${download.value}</div>`;
+      }  
+      
+      if (imageFile) {
+        reader.onloadend = function () {
+          displayResume(reader.result);
+        };
+        reader.readAsDataURL(imageFile);
+      } else {
+        displayResume('');
+      }
+    });
+
+    download.addEventListener('click', () => {
+      const element = document.getElementById('outputContent');
+      html2pdf()
+        .from(element)
+        .save('My_Resume.pdf');
+    });
+    
+    
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="register-sw.js"></script>
+</body>
+</html>
