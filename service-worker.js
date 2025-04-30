@@ -5,7 +5,7 @@ self.addEventListener('install', (event) => {
       caches.open('resume-builder-cache-v1').then((cache) => {
         return cache.addAll([
           './',
-          './resumeBuilder.html',
+          './index.html',
           './manifest.json',
           './android-chrome-192x192.png',
           './android-chrome-512x512.png',
